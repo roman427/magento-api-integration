@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Zaheer_Smsandvoucher>
+      <version>1.0.0</version>
+    </Zaheer_Smsandvoucher>
+  </modules>
+  <global>
+    <helpers>
+      <smsandvoucher>
+        <class>Zaheer_Smsandvoucher_Helper</class>
+      </smsandvoucher>
+    </helpers>
+  </global>
+</config> 

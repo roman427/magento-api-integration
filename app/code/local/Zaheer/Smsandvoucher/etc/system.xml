@@ -16,8 +16,8 @@
 		<show_in_website>1</show_in_website>
 		<show_in_store>1</show_in_store>
 					<groups>
-				      <zaheergroup translate="label"> 
-					  <label>SMS and Voucher Configuration</label>
+				      <smsgroup translate="label"> 
+					  <label>SMS Configuration</label>
 					  <frontend_type>text</frontend_type>
 					  <sort_order>0</sort_order>
 					  <show_in_default>1</show_in_default>
@@ -33,16 +33,43 @@
                             <show_in_store>1</show_in_store>
 							<comment>Please generate and use from here https://smscenter.gr/</comment>
                           </smsuser>
-                          <smsuser translate="label">
+                          <smspass translate="label">
                             <label>Password</label>
 							<frontend_type>password</frontend_type>
                             <sort_order>0</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                          </smsuser>
+                          </smspass>
 					   </fields>
-					   </zaheergroup>
+					   </smsgroup>
+					   <vouchergroup translate="label"> 
+					  <label>Voucher Generate Configuration</label>
+					  <frontend_type>text</frontend_type>
+					  <sort_order>0</sort_order>
+					  <show_in_default>1</show_in_default>
+					  <show_in_website>1</show_in_website>
+					  <show_in_store>1</show_in_store>
+				       <fields>
+                          <voucheruser translate="label">
+                            <label>Username</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment>Please generate and use from here https://www.taxydromiki.com/</comment>
+                          </voucheruser>
+                          <voucherpass translate="label">
+                            <label>Password</label>
+							<frontend_type>password</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                          </voucherpass>
+					   </fields>
+					   </vouchergroup>
 					</groups>
 		</zaheersection>
 	  </sections>

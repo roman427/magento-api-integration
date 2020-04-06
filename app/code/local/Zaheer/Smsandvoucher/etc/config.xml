@@ -11,5 +11,39 @@
         <class>Zaheer_Smsandvoucher_Helper</class>
       </smsandvoucher>
     </helpers>
+	<models>
+	  <smsandvoucher>
+		<class>Zaheer_Smsandvoucher_Model</class>
+		<resourceModel>smsandvoucher_mysql4</resourceModel>
+	  </smsandvoucher>
+	  <smsandvoucher_mysql4>
+		<class>Zaheer_Smsandvoucher_Model_Mysql4</class>
+		<entities>
+			  <resultdata>
+				<table>resultdata</table>
+			  </resultdata>
+		</entities>
+	  </smsandvoucher_mysql4>
+	</models>
+	<resources>
+	  <smsandvoucher_setup>
+		<setup>
+		  <module>Zaheer_Smsandvoucher</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </smsandvoucher_setup>
+	  <smsandvoucher_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </smsandvoucher_write>
+	  <smsandvoucher_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </smsandvoucher_read>
+	</resources>
   </global>
 </config> 

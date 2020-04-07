@@ -4,7 +4,9 @@ class Zaheer_Smsandvoucher_Model_Observer {
 	protected $_orderIncrementId;
 	public function generateVoucherAndSendSMS(Varien_Event_Observer $observer) {
 		$shipment = $observer->getEvent()->getShipment();
-		$this->_generateShipmentVoucher($shipment);
+		$smsResult = [];
+		$resultModel = Mage::getModel("smsandvoucher/resultdata");
+		$voucherResult = $this->_generateShipmentVoucher($shipment);
 		if ($shipment->getOrigData('entity_id')) {
 			// in case of updating shipment do nothing
 			return;
@@ -15,8 +17,14 @@ class Zaheer_Smsandvoucher_Model_Observer {
 		/* send message to customer about shipment generation */
 		$mobileNumber = $order->getShippingAddress()->getTelephone();
 		if ($this->_getSmsAPIKey() && $this->_checkIsMobileValid($mobileNumber)) {
-			$smsResult = $this->_sendSMSMessage($this->_getSmsAPIKey(), $mobileNumber);
+			$smsResult = json_decode(json_encode($this->_sendSMSMessage($this->_getSmsAPIKey(), $mobileNumber)), true);
+
 		}
+		$finalResult['SMS'] = $smsResult;
+		$finalResult['Voucher'] = $voucherResult;
+		$resultModel->setResultdata(json_encode($finalResult));
+		$resultModel->setShipmentId($shipment->getId());
+		$resultModel->save();
 		/* end send message */
 
 		return $this;
@@ -116,11 +124,17 @@ class Zaheer_Smsandvoucher_Model_Observer {
 	protected function _getSmsAPIKey() {
 		$smsUser = Mage::getStoreConfig('zaheersection/smsgroup/smsuser', $this->_stoerId);
 		$smsPass = Mage::getStoreConfig('zaheersection/smsgroup/smspass', $this->_stoerId);
-		$endpoint = "https://smscenter.gr/api/key/get?username=$smsUser&password=$smsPass&type=json";
+		$endpoint = 'https://smscenter.gr/api/key/get';
+		$parameters = array(
+			'username' => $smsUser,
+			'password' => $smsPass,
+			'type' => 'json', // type of return format
+		);
 
 		$c = curl_init();
 		curl_setopt($c, CURLOPT_URL, $endpoint);
 		curl_setopt($c, CURLOPT_POST, true);
+		curl_setopt($c, CURLOPT_POSTFIELDS, $parameters);
 		curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 		$output = curl_exec($c);
 		curl_close($c);
@@ -128,18 +142,7 @@ class Zaheer_Smsandvoucher_Model_Observer {
 		if ($resultArray->status != '1') {
 			return false;
 		}
-		$origKey = $resultArray->key;
-		$resetEndPoint = "https://smscenter.gr/api/key/reset?key=$origKey&type=json";
-		$c = curl_init();
-		curl_setopt($c, CURLOPT_URL, $resetEndPoint);
-		curl_setopt($c, CURLOPT_POST, true);
-		curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-		$output = curl_exec($c);
-		curl_close($c);
-		$resultArray = json_decode($output);
-		if ($resultArray->status != '1') {
-			return false;
-		}
+
 		return $resultArray->key;
 
 	}

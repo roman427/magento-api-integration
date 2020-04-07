@@ -11,6 +11,11 @@
         <class>Zaheer_Smsandvoucher_Helper</class>
       </smsandvoucher>
     </helpers>
+	<blocks>
+	  <smsandvoucher>
+		<class>Zaheer_Smsandvoucher_Block</class>
+	  </smsandvoucher>
+	</blocks>
 	<models>
 	  <smsandvoucher>
 		<class>Zaheer_Smsandvoucher_Model</class>
@@ -57,4 +62,58 @@
         </sales_order_shipment_save_after>
 	</events>
   </global>
+  <admin>
+	<routers>
+	  <smsandvoucher>
+	    <use>admin</use>
+		<args>
+		  <module>Zaheer_Smsandvoucher</module>
+		  <frontName>admin_smsandvoucher</frontName>
+		</args>
+	  </smsandvoucher>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <smsandvoucher module="smsandvoucher">
+		<title>Smsandvoucher</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <resultdata module="smsandvoucher">
+		    <title>Show Report</title>
+			<sort_order>0</sort_order>
+			<action>admin_smsandvoucher/adminhtml_resultdata</action>
+		  </resultdata>
+		</children>
+	  </smsandvoucher>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<smsandvoucher translate="title" module="smsandvoucher">
+			  <title>Smsandvoucher</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <resultdata translate="title">
+			<title>Manage Resultdata</title>
+			<sort_order>0</sort_order>
+		  </resultdata>
+			  </children>
+			</smsandvoucher>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<smsandvoucher>
+		  <file>smsandvoucher.xml</file>
+		</smsandvoucher>
+	  </updates>
+	</layout>
+  </adminhtml>
 </config> 

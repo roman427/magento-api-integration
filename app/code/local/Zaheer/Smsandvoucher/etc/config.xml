@@ -45,5 +45,16 @@
 		</connection>
 	  </smsandvoucher_read>
 	</resources>
+	<events>
+		<sales_order_shipment_save_after>
+            <observers>
+                <zaheer_shipmentemail_sales_order_shipment_save_after>
+                    <type>singleton</type>
+                    <class>Zaheer_Smsandvoucher_Model_Observer</class>
+                    <method>generateVoucherAndSendSMS</method>
+                </zaheer_shipmentemail_sales_order_shipment_save_after>
+            </observers>
+        </sales_order_shipment_save_after>
+	</events>
   </global>
 </config> 

@@ -12,6 +12,10 @@ $table = $installer->getConnection()
 	), 'Id')
 	->addColumn('resultdata', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
 		'nullable' => false,
-	), 'Result Data');
+	), 'Result Data')
+	->addColumn('shipment_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+		'nullable' => false,
+		'default' => '0',
+	), 'Shipment Id');
 $installer->getConnection()->createTable($table);
 $installer->endSetup();
